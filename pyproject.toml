@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools >= 77.0.3"]
+requires = ["setuptools >= 77.0.3", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -33,4 +33,38 @@ Changelog = "https://github.com/tufbyte/suvawa/blob/master/CHANGELOG.txt"
 license-files = ["CONTRIBUTORS.txt"]
 
 [project.optional-dependencies]
-dev = ["pytest", "build", "twine"]
+dev = [
+  "pytest",
+  "build",
+  "twine",
+  "mypy",
+  "black",
+  "isort",
+  "flake8",
+  "cibuildwheel",
+  "pre-commit"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -q --cov=src"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+python_version = 3.8
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+strict = true
+
+[tool.setuptools.dynamic]
+version = { attr = "suvawa.__version__" }
