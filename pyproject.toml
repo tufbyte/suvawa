@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+dynamic = ["version"]
+requires-python = ">=3.8"
+name = "suvawa"
+dependencies = []
+authors = [
+  { name = "Aitzaz Imtiaz", email = "aitzazimtiaz@brokeconsortium.re.kr" }
+]
+description = "suvawa is a sand-box for interesting mathematical implementations"
+readme = { file = "README.txt", content-type = "text/plain" }
+license = { text = "Boost Software License - Version 1.0" }
+keywords = ["programming", "automata", "research"]
+
+classifiers = [
+  "Development Status :: 1 - Planning",
+  "Intended Audience :: Science/Research",
+  "Natural Language :: English",
+  "Programming Language :: Python :: 3.8",
+]
+
+[project.urls]
+Homepage = "https://tufbyte.github.io/suvawa"
+Documentation = "https://tufbyte.github.io/suvawa/docs"
+Repository = "https://github.com/tufbyte/suvawa"
+Issues = "https://github.com/tufbyte/suvawa/issues"
+Changelog = "https://github.com/tufbyte/suvawa/blob/master/CHANGELOG.txt"
+
+[tool.setuptools]
+license-files = ["CONTRIBUTORS.txt"]
+
+[project.optional-dependencies]
+dev = ["pytest", "build", "twine"]
