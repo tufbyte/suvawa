@@ -12,7 +12,6 @@ VENV_BIN=$(VENV_NAME)/bin
 PYTHON=$(VENV_BIN)/python3
 PIP=$(VENV_BIN)/pip
 PYTEST=$(VENV_BIN)/pytest
-SPHINX_BUILD=$(VENV_BIN)/sphinx-build
 PACKAGE=suvawa
 VERSION_FILE=src/$(PACKAGE)/__init__.py
 
@@ -30,7 +29,7 @@ help:
 	@echo "  format          Auto-format code with Black + isort"
 	@echo "  lint            Run static analysis (flake8, mypy, etc.)"
 	@echo "  mypy            Type-check project"
-	@echo "  docs            Build documentation with Sphinx"
+	@echo "  docs            Sync or rebuild HTML documentation"
 	@echo "  dist            Build distributable package"
 	@echo "  publish         Upload to PyPI via twine"
 	@echo "  bump-major/minor/patch  Version bump controls"
@@ -82,12 +81,15 @@ mypy:
 	$(VENV_BIN)/mypy src
 
 # ============================================
-# 📘  Documentation
+# 🌐  Documentation
 # ============================================
+# Suvawa uses static HTML docs — no Sphinx required.
+# Place all .html files under docs/html/ and they’ll be copied to docs/build/.
 docs:
-	@echo "\n📚 Building documentation..."
-	$(SPHINX_BUILD) -b html docs/source docs/build
-	@echo "\n✅ Documentation available at docs/build/index.html"
+	@echo "\n🌐 Preparing Suvawa documentation..."
+	@mkdir -p docs/build
+	cp -r docs/html/* docs/build/
+	@echo "\n✅ HTML documentation available at docs/build/index.html"
 
 # ============================================
 # 📦  Packaging
@@ -127,6 +129,8 @@ clean-all: clean
 # ============================================
 # 🧪  Examples
 # ============================================
+# If you don't have a CLI yet, you can safely comment this out or
+# create a simple src/suvawa/cli.py as a placeholder.
 run-examples:
 	@echo "\n🏃 Running Suvawa examples..."
 	@for example in examples/*.sua; do \
